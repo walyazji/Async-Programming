@@ -1,14 +1,17 @@
-// ignore_for_file: avoid_print, unused_local_variable
+import 'package:flutter/material.dart';
 
-void main() {
-  final f1 = Future(info)
-      .then((value) => print('value = $value'))
-      .catchError((error) => print('error = $error'));
-  final f2 = Future.value(2).then((value) => print(value));
-  final f3 = Future.delayed(const Duration(seconds: 1), () => print(2));
-  print(1);
-}
+class FutureApp extends StatelessWidget {
+  const FutureApp({Key? key}) : super(key: key);
 
-double info() {
-  return double.parse('6556asd');
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        // future: ,
+        builder: ((ctx, snapshot) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: Container(),
+      );
+    }));
+  }
 }
