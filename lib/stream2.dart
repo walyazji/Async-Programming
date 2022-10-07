@@ -1,8 +1,10 @@
+import 'dart:html';
+
 import 'package:async_proramming/main.dart';
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
-  runApp(MyAppStream());
+  runApp(const MyAppStream());
 }
 
 class MyAppStream extends StatelessWidget {
@@ -10,7 +12,7 @@ class MyAppStream extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyStream(),
     );
@@ -28,15 +30,21 @@ class _MyStreamState extends State<MyStream> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
+      stream: Stream.periodic(const Duration(seconds: 5), (a) => a),
       builder: (ctx, snapshot) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Stream App'),
+            title: Text((snapshot.hasData && snapshot.data as num < 10)
+                ? '${snapshot.data}'
+                : 'Demo'),
           ),
-          body: null,
+          body: Container(
+            child: snapshot.connectionState == ConnectionState.waiting
+                ? const Center(child: CircularProgressIndicator())
+                : const Center(child: Text('Done')),
+          ),
         );
       },
-      stream: Stream.periodic(const Duration(milliseconds: 500), (a) => a * 2),
     );
   }
 }
