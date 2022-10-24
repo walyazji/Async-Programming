@@ -13,8 +13,11 @@ class URLApp extends StatefulWidget {
 }
 
 class _URLAppState extends State<URLApp> {
-  Uri url = Uri.parse(
-      'https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US');
+  // var str = 'Get The App';
+  var str = 'Get The Video';
+  // Uri url = Uri.parse(
+  //     'https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US');
+  var url = 'https://youtu.be/izg23U8nHjs';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,16 +29,20 @@ class _URLAppState extends State<URLApp> {
           child: ElevatedButton(
             onPressed: () async {
               try {
-                await canLaunchUrl(url)
-                    ? await launchUrl(url)
+                await canLaunch(url)
+                    ? await launch(
+                        url,
+                        forceWebView: true,
+                        enableJavaScript: true,
+                      )
                     : throw 'This URL is Null';
               } catch (e) {
-                Center(
-                  child: Text(e.toString()),
-                );
+                setState(() {
+                  str = e.toString();
+                });
               }
             },
-            child: const Text('Get The App'),
+            child: Text(str),
           ),
         ),
       ),
